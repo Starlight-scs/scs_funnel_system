@@ -1,0 +1,85 @@
+.ut-admin-widget {
+  max-width: 520px;
+}
+
+.ut-admin-widget__controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ut-admin-widget__upload-button {
+  min-width: 96px;
+}
+
+.ut-admin-widget__delete-button {
+  min-width: 96px;
+}
+
+.ut-admin-widget__upload-button.ut-admin-widget__upload-button--success {
+  background: #15803d;
+  border-color: #15803d;
+  color: #fff;
+}
+
+.ut-admin-widget__meta {
+  margin-top: 8px;
+}
+
+.ut-admin-widget__file-name {
+  color: #52606d;
+}
+
+.ut-admin-widget__progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.ut-admin-widget__progress-bar {
+  flex: 1;
+  height: 10px;
+  border-radius: 999px;
+  background: #e5edf5;
+  overflow: hidden;
+}
+
+.ut-admin-widget__progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb 0%, #16a34a 100%);
+  transition: width 120ms linear;
+}
+
+.ut-admin-widget__progress-value {
+  min-width: 44px;
+  font-weight: 700;
+  color: #243647;
+}
+
+.ut-admin-widget__success {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  color: #166534;
+  font-weight: 700;
+}
+
+.ut-admin-widget__check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: #16a34a;
+  color: #fff;
+}
+
+.ut-admin-widget__error {
+  margin-top: 8px;
+  color: #b91c1c;
+  font-weight: 600;
+}

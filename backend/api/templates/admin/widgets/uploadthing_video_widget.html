@@ -1,0 +1,39 @@
+<div
+  class="ut-admin-widget"
+  data-prepare-url="{{ widget.attrs.prepare_url }}"
+  data-delete-url="{{ widget.attrs.delete_url }}"
+  data-target-field-name="{{ widget.attrs.target_field_name }}"
+  data-current-url="{{ widget.attrs.current_url }}"
+>
+  <div class="ut-admin-widget__controls">
+    <input
+      type="file"
+      class="ut-admin-widget__file-input"
+      accept="video/*"
+    />
+    <button type="button" class="button ut-admin-widget__upload-button" disabled>
+      Upload
+    </button>
+    <button type="button" class="button ut-admin-widget__delete-button" {% if not widget.attrs.current_url %}disabled{% endif %}>
+      Delete
+    </button>
+  </div>
+
+  <div class="ut-admin-widget__meta">
+    <span class="ut-admin-widget__file-name">No file selected</span>
+  </div>
+
+  <div class="ut-admin-widget__progress" hidden>
+    <div class="ut-admin-widget__progress-bar">
+      <div class="ut-admin-widget__progress-fill" style="width: 0%;"></div>
+    </div>
+    <span class="ut-admin-widget__progress-value">0%</span>
+  </div>
+
+  <div class="ut-admin-widget__success" hidden>
+    <span class="ut-admin-widget__check">✓</span>
+    <span class="ut-admin-widget__success-text">Uploaded</span>
+  </div>
+
+  <div class="ut-admin-widget__error" hidden></div>
+</div>
