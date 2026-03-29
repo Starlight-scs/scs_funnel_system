@@ -98,7 +98,9 @@ export default function BranchPage() {
   }, [branch?.video_url]);
 
   useEffect(() => {
-    if (!isCalendlyOpen || !isCalendlyReady || branch?.cta.type !== 'schedule' || !branch?.cta.config.url) {
+    const calendlyUrl = branch?.cta.type === 'schedule' ? branch.cta.config.url : undefined;
+
+    if (!isCalendlyOpen || !isCalendlyReady || !calendlyUrl) {
       return;
     }
 
@@ -109,7 +111,7 @@ export default function BranchPage() {
 
       calendlyContainerRef.current.innerHTML = '';
       window.Calendly.initInlineWidget({
-        url: branch.cta.config.url,
+        url: calendlyUrl,
         parentElement: calendlyContainerRef.current,
         resize: true,
         prefill: {
