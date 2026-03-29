@@ -18,8 +18,23 @@ class CTASerializer(serializers.ModelSerializer):
         fields = ['id', 'type', 'config']
 
 class BranchSerializer(serializers.ModelSerializer):
-    cta = CTASerializer(read_only=True)
-    assessment = AssessmentSerializer(read_only=True)
+    cta = serializers.SerializerMethodField()
+    assessment = serializers.SerializerMethodField()
+
+    def get_cta(self, obj):
+        try:
+            cta = obj.cta
+        except CTA.DoesNotExist:
+            return None
+        return CTASerializer(cta).data
+
+    def get_assessment(self, obj):
+        try:
+            assessment = obj.assessment
+        except Assessment.DoesNotExist:
+            return None
+        return AssessmentSerializer(assessment).data
+
     class Meta:
         model = Branch
         fields = ['id', 'campaign', 'name', 'slug', 'video_url', 'audience_type', 'description', 'label', 'cta', 'assessment']

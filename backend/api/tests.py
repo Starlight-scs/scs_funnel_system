@@ -102,6 +102,40 @@ class ApiEndpointTests(TestCase):
         self.assertEqual(payload["assessment"]["title"], self.assessment.title)
         self.assertEqual(payload["assessment"]["questions"][0]["text"], self.question.text)
 
+    def test_campaign_detail_allows_branch_without_cta_or_assessment(self):
+        Branch.objects.create(
+            campaign=self.campaign,
+            name="Potential Clients",
+            slug="potential-clients",
+            video_url="https://example.com/client.mp4",
+            audience_type="client",
+            description="Explore whether the firm is a fit.",
+            label="Need advice?",
+        )
+
+        response = self.client.get(
+            reverse("campaign-detail", kwargs={"slug": self.campaign.slug})
+        )
+
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        client_branch = next(branch for branch in payload["branches"] if branch["slug"] == "potential-clients")
+        self.assertIsNone(client_branch["cta"])
+        self.assertIsNone(client_branch["assessment"])
+
+    def test_missing_branch_returns_404_instead_of_500(self):
+        response = self.client.get(
+            reverse(
+                "branch-detail",
+                kwargs={
+                    "campaign_slug": self.campaign.slug,
+                    "branch_slug": "missing-branch",
+                },
+            )
+        )
+
+        self.assertEqual(response.status_code, 404)
+
     def test_lead_submission_endpoint_creates_submission_and_response_records(self):
         payload = {
             "campaign": self.campaign.id,

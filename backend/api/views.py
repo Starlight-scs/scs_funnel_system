@@ -1,6 +1,6 @@
-from rest_framework import viewsets, generics, status
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
-from rest_framework.response import Response
+from rest_framework import generics
 from .models import Campaign, Branch, CampaignStatus, LeadSubmission
 from .serializers import CampaignSerializer, BranchSerializer, LeadSubmissionSerializer
 
@@ -36,11 +36,14 @@ class BranchDetailView(generics.RetrieveAPIView):
     def get_object(self):
         campaign_slug = self.kwargs.get('campaign_slug')
         branch_slug = self.kwargs.get('branch_slug')
-        return Branch.objects.get(
-            campaign__slug=campaign_slug,
-            campaign__status=CampaignStatus.PUBLISHED,
-            slug=branch_slug,
-        )
+        try:
+            return Branch.objects.get(
+                campaign__slug=campaign_slug,
+                campaign__status=CampaignStatus.PUBLISHED,
+                slug=branch_slug,
+            )
+        except ObjectDoesNotExist as exc:
+            raise Http404("Branch not found.") from exc
 
 class LeadSubmissionCreateView(generics.CreateAPIView):
     queryset = LeadSubmission.objects.all()

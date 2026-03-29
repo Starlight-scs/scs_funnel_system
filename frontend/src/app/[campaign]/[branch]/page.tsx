@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { fetchBranch, submitLead } from '@/lib/api';
+import { fetchBranch, getBranchErrorMessage, submitLead } from '@/lib/api';
 import { useFunnelStore } from '@/store/useFunnelStore';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -53,7 +53,7 @@ export default function BranchPage() {
         const data = await fetchBranch(campaignSlug as string, branchSlug as string);
         setBranch(data);
       } catch (err) {
-        setError('Branch not found');
+        setError(getBranchErrorMessage(err));
         console.error(err);
       } finally {
         setLoading(false);
