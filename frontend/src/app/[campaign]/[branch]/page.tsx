@@ -234,10 +234,10 @@ export default function BranchPage() {
   };
 
   return (
-    <main className="h-screen w-full bg-slate-950 text-white overflow-hidden flex flex-col md:flex-row">
+    <main className="min-h-screen w-full bg-slate-950 text-white overflow-hidden flex flex-col md:h-screen md:flex-row">
       {/* Video Section - Main Content */}
-      <div className="flex-1 relative bg-black flex items-center justify-center">
-        <div className="w-full h-full relative">
+      <div className="relative flex min-h-[48vh] w-full flex-1 items-center justify-center bg-black md:min-h-0">
+        <div className="relative h-full min-h-[48vh] w-full md:min-h-0">
           {branch.video_url && (
             <video
               ref={videoRef}
@@ -248,18 +248,18 @@ export default function BranchPage() {
               loop
               playsInline
               preload="auto"
-              className="absolute top-0 left-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover"
             />
           )}
           {!branch.video_url && <div className="absolute inset-0 bg-slate-900" />}
         </div>
         
         {/* Back Button Overlay */}
-        <div className="absolute top-8 left-8 z-10">
+        <div className="absolute left-4 top-4 z-10 md:left-8 md:top-8">
           <Button 
             variant="ghost" 
             onClick={() => router.push(`/${campaignSlug}`)}
-            className="bg-black/20 hover:bg-black/40 text-white backdrop-blur-sm border border-white/10"
+            className="border border-white/10 bg-black/20 text-white backdrop-blur-sm hover:bg-black/40"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to choices
@@ -268,7 +268,7 @@ export default function BranchPage() {
 
         <button
           onClick={toggleMute}
-          className="absolute bottom-4 left-4 md:bottom-8 md:left-8 z-20 p-2 md:p-3 bg-black/50 hover:bg-black/70 rounded-full transition-colors backdrop-blur-sm border border-white/20"
+          className="absolute bottom-4 left-4 z-20 rounded-full border border-white/20 bg-black/50 p-2 transition-colors backdrop-blur-sm hover:bg-black/70 md:bottom-8 md:left-8 md:p-3"
           aria-label={isMuted ? 'Unmute' : 'Mute'}
         >
           {isMuted ? (
@@ -368,13 +368,13 @@ export default function BranchPage() {
       )}
 
       {/* Info & CTA Sidebar */}
-      <div className="w-full md:w-[400px] h-full bg-slate-900 border-l border-slate-800 flex flex-col p-8 overflow-y-auto">
+      <div className="w-full bg-slate-900 border-t border-slate-800 p-6 md:h-full md:w-[400px] md:border-l md:border-t-0 md:p-8 md:overflow-y-auto">
         <div className="mb-8 md:mt-12">
           <h1 className="text-3xl font-bold tracking-tight mb-4">{branch.name}</h1>
           <p className="text-slate-300 text-lg leading-relaxed">{branchDescription}</p>
         </div>
 
-        <div className="mt-auto space-y-6 pb-8">
+        <div className="space-y-6 pb-2 md:mt-auto md:pb-8">
           <div className="p-6 bg-slate-800/50 rounded-2xl border border-slate-700">
             <h2 className="text-xl font-semibold mb-4 text-center">Ready to take the next step?</h2>
             {hasCta ? (
