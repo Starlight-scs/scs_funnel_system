@@ -51,7 +51,7 @@ export default function CampaignPage() {
   };
 
   return (
-    <main className="h-screen w-full bg-slate-950 text-white overflow-hidden relative">
+    <main className="min-h-screen w-full bg-slate-950 text-white overflow-hidden relative md:h-screen">
       {/* Full Screen Video Background */}
       <div className="absolute inset-0">
         {campaign.intro_video_url && (
@@ -70,9 +70,9 @@ export default function CampaignPage() {
       </div>
 
       {/* Content Layer */}
-      <div className="relative z-10 h-full flex flex-col md:flex-row items-center p-4 md:p-8">
+      <div className="relative z-10 flex min-h-screen flex-col items-center justify-start p-4 pb-20 pt-8 md:h-full md:min-h-0 md:flex-row md:items-center md:p-8">
         {/* Title Section - Left Side */}
-        <div className="flex-1 flex items-center justify-center p-4 md:p-8">
+        <div className="flex w-full flex-1 items-center justify-center p-4 md:p-8">
           <div className="text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight drop-shadow-lg mb-4 md:mb-6">
               {campaign.name}
@@ -84,7 +84,7 @@ export default function CampaignPage() {
         </div>
 
         {/* Floating Branch Selection Card - Right Side */}
-        <div className="w-full max-w-md bg-slate-900/90 backdrop-blur-md rounded-2xl border border-slate-700/50 shadow-2xl p-5 md:p-8 md:mr-2 lg:mr-3">
+        <div className="w-full max-w-md overflow-y-auto rounded-2xl border border-slate-700/50 bg-slate-900/90 p-5 shadow-2xl backdrop-blur-md md:max-h-[calc(100vh-4rem)] md:p-8 md:mr-2 lg:mr-3">
           <div className="mb-5 md:mb-6 text-center">
             <h2 className="text-xl md:text-2xl font-semibold mb-2">There is a place for you here.</h2>
             <p className="text-slate-400 text-xs md:text-sm">Select what fits your situation.</p>
@@ -119,7 +119,7 @@ export default function CampaignPage() {
       {/* Audio Toggle Button */}
       <button
         onClick={toggleMute}
-        className="absolute bottom-4 left-4 md:bottom-8 md:left-8 z-20 p-2 md:p-3 bg-black/50 hover:bg-black/70 rounded-full transition-colors backdrop-blur-sm border border-white/20"
+        className="absolute bottom-4 left-4 z-20 rounded-full border border-white/20 bg-black/50 p-2 transition-colors backdrop-blur-sm hover:bg-black/70 md:bottom-8 md:left-8 md:p-3"
         aria-label={isMuted ? 'Unmute' : 'Mute'}
       >
         {isMuted ? (
