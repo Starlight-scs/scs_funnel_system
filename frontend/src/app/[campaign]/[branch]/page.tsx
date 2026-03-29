@@ -154,8 +154,11 @@ export default function BranchPage() {
       hasSubmittedScheduledLeadRef.current = true;
 
       try {
+        const campaignId =
+          typeof branch.campaign === 'number' ? branch.campaign : branch.campaign.id;
+
         await submitLead({
-          campaign: branch.campaign?.id ?? branch.campaign ?? undefined,
+          campaign: campaignId,
           branch: branch.id,
           cta_type: 'schedule',
           first_name: scheduleLead.first_name,
@@ -180,6 +183,8 @@ export default function BranchPage() {
   if (error || !branch) return <div className="text-center p-8">{error || 'Branch not found'}</div>;
 
   const branchCta = branch.cta;
+  const externalCtaUrl =
+    branchCta && typeof branchCta.config?.url === 'string' ? branchCta.config.url : undefined;
   const hasCta = Boolean(branchCta?.type);
   const branchDescription = branch.description || 'More information for this branch is coming soon.';
 
@@ -197,14 +202,14 @@ export default function BranchPage() {
       setIsCalendlyOpen(true);
     } else {
       // Redirect to external URL for schedule/download
-      if (branchCta.config?.url) {
-        window.open(branchCta.config.url, '_blank');
+      if (externalCtaUrl) {
+        window.open(externalCtaUrl, '_blank');
       }
       router.push(`/${campaignSlug}/${branchSlug}/success`);
     }
   };
 
-  const calendlyUrl = branchCta?.type === 'schedule' ? branchCta.config?.url : '';
+  const calendlyUrl = branchCta?.type === 'schedule' && externalCtaUrl ? externalCtaUrl : '';
 
   const openCalendlyScheduler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
