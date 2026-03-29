@@ -15,9 +15,9 @@ export default function SuccessPage() {
         <div className="flex justify-center">
           <CheckCircle2 className="h-24 w-24 text-green-500" />
         </div>
-        <h1 className="text-4xl font-bold">You&apos;re all set!</h1>
+        <h1 className="text-4xl font-bold">You're all set!</h1>
         <p className="text-xl text-muted-foreground">
-          Thank you for your submission. We&apos;ve received your information and will be in touch shortly.
+          Thank you for your submission. We've received your information and will be in touch shortly.
         </p>
         <div className="pt-8">
           <Button size="lg" onClick={() => router.push(`/${campaignSlug}`)} className="w-full">

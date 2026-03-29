@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { fetchCampaign, getCampaignErrorMessage } from '@/lib/api';
-import type { Branch } from '@/lib/api';
+import { fetchCampaign } from '@/lib/api';
 import { useFunnelStore } from '@/store/useFunnelStore';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -23,9 +22,11 @@ export default function CampaignPage() {
     const getCampaign = async () => {
       try {
         const data = await fetchCampaign(campaignSlug as string);
+        console.log('Campaign data:', data);
+        console.log('Intro video URL:', data.intro_video_url);
         setCampaign(data);
       } catch (err) {
-        setError(getCampaignErrorMessage(err));
+        setError('Campaign not found');
         console.error(err);
       } finally {
         setLoading(false);
@@ -37,7 +38,7 @@ export default function CampaignPage() {
   if (loading) return <div className="container mx-auto p-8"><Skeleton className="h-[400px] w-full" /></div>;
   if (error || !campaign) return <div className="text-center p-8">{error || 'Campaign not found'}</div>;
 
-  const handleBranchSelect = (branch: Branch) => {
+  const handleBranchSelect = (branch: any) => {
     setBranch(branch);
     router.push(`/${campaignSlug}/${branch.slug}`);
   };
@@ -90,7 +91,7 @@ export default function CampaignPage() {
           </div>
 
           <div className="space-y-3 md:space-y-4">
-            {campaign.branches.map((branch) => (
+            {campaign.branches.map((branch: any) => (
               <Card
                 key={branch.id}
                 className="bg-slate-800/80 border-slate-700 hover:border-primary transition-all cursor-pointer hover:shadow-2xl group text-white text-center"

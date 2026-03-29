@@ -1,11 +1,10 @@
 import { create } from 'zustand';
-import type { Branch, Campaign } from '@/lib/api';
 
 interface FunnelState {
-  campaign: Campaign | null;
-  branch: Branch | null;
-  setCampaign: (campaign: Campaign) => void;
-  setBranch: (branch: Branch) => void;
+  campaign: any | null;
+  branch: any | null;
+  setCampaign: (campaign: any) => void;
+  setBranch: (branch: any) => void;
   clear: () => void;
 }
 
