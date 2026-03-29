@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useFunnelStore } from '@/store/useFunnelStore';
 import { submitLead } from '@/lib/api';
+import type { AssessmentQuestion } from '@/lib/api';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -36,6 +37,9 @@ export default function AssessmentPage() {
   if (!branch) return <div className="text-center p-8">Loading...</div>;
 
   const questions = branch.assessment?.questions || [];
+  const campaignId =
+    campaign?.id ??
+    (typeof branch.campaign === 'number' ? branch.campaign : branch.campaign.id);
   const totalSteps = questions.length + 1;
   const progress = ((step) / totalSteps) * 100;
 
@@ -54,7 +58,7 @@ export default function AssessmentPage() {
     try {
       const leadData = form.getValues();
       const payload = {
-        campaign: campaign.id,
+        campaign: campaignId,
         branch: branch.id,
         cta_type: 'assessment',
         ...leadData,
@@ -122,7 +126,7 @@ export default function AssessmentPage() {
                     }
                     value={answers[questions[step - 1].id] ?? ''}
                   >
-                    {questions[step-1].options.map((opt: string, idx: number) => (
+                    {(((questions[step - 1] as AssessmentQuestion).options ?? []) as string[]).map((opt, idx) => (
                       <div key={idx} className="flex items-center space-x-2 border p-3 rounded-lg hover:bg-slate-50">
                         <RadioGroupItem value={opt} id={`opt-${idx}`} />
                         <Label htmlFor={`opt-${idx}`} className="w-full cursor-pointer">{opt}</Label>
