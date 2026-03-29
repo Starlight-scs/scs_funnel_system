@@ -102,8 +102,8 @@ export default function CampaignPage() {
                   <CardDescription className="text-slate-400 text-sm md:text-base">{branch.description}</CardDescription>
                 </CardHeader>
                 <CardContent className="p-3 md:p-4 pt-0">
-                  <Button variant="secondary" size="sm" className="px-3 py-1 h-7 text-xs group-hover:bg-primary group-hover:text-white transition-all">
-                    Choose Path
+                  <Button variant="secondary" size="sm" className="px-4 py-2 h-9 text-sm font-extrabold group-hover:bg-primary group-hover:text-white transition-all">
+                    Explore
                   </Button>
                 </CardContent>
               </Card>
