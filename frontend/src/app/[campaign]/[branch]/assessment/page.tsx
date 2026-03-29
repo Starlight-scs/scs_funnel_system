@@ -36,6 +36,8 @@ export default function AssessmentPage() {
   if (!branch) return <div className="text-center p-8">Loading...</div>;
 
   const questions = branch.assessment?.questions || [];
+  const campaignId =
+    typeof branch.campaign === 'number' ? branch.campaign : branch.campaign?.id;
   const totalSteps = questions.length + 1;
   const progress = ((step) / totalSteps) * 100;
 
@@ -50,11 +52,16 @@ export default function AssessmentPage() {
   };
 
   const handleSubmitAll = async () => {
+    if (!campaignId) {
+      alert('Campaign data is missing. Please go back and try again.');
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const leadData = form.getValues();
       const payload = {
-        campaign: campaign.id,
+        campaign: campaignId,
         branch: branch.id,
         cta_type: 'assessment',
         ...leadData,
