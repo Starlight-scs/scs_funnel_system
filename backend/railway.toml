@@ -5,7 +5,7 @@
   runtime = "V2"
   numReplicas = 1
   preDeployCommand = "python manage.py migrate"
-  startCommand = "python manage.py collectstatic --noinput && gunicorn core.wsgi:application --bind 0.0.0.0:$PORT"
+  startCommand = "python manage.py migrate && python manage.py collectstatic --noinput && python manage.py createsuperuser --noinput || true && gunicorn core.wsgi:application --bind 0.0.0.0:$PORT"
   sleepApplication = false
   useLegacyStacker = false
   ipv6EgressEnabled = false
