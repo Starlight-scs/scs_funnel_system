@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Scs Video Funnel System",
-  description: "Scs Video Funnel System",
+  title: "Path Forward",
+  description: "Path Forward",
 };
 
 export default function RootLayout({
